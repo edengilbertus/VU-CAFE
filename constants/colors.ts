@@ -1,16 +1,15 @@
 export const Colors = {
-  primary: '#3472B5',
-  primaryLight: '#8AACD1',
-  primaryDark: '#2A5B92',
-  secondary: '#DB2A2D',
-  accent: '#5B3514',
-  background: '#FDFEFE',
+  primary: '#DB2A2D', // red from logo
+  secondary: '#5B3514', // brown from logo
+  accent: '#8AACD1', // blue-gray from logo
+  background: '#FDFEFE', // almost white from logo
   surface: '#FDFEFE',
   border: '#CED5DD',
-  muted: '#BEBEBF',
-  mutedDark: '#9E9E9F',
-  mutedDarker: '#8E8F8F',
-  text: '#2D1C29',
+  muted: '#BEBEBF', // light gray from logo
+  mutedDark: '#9E9E9F', // gray from logo
+  mutedDarker: '#8E8F8F', // darker gray from logo
+  text: '#0C0909', // almost black from logo
+  dark: '#2D1C29', // dark purple/brown from logo
   success: '#3AA76D',
   warning: '#E2D4D2',
 } as const;

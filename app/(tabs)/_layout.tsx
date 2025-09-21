@@ -3,6 +3,7 @@ import { Home, ShoppingCart, Settings } from 'lucide-react-native';
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useFoodStore } from '@/hooks/use-food-store';
+import { Colors } from '@/constants/colors';
 
 function CartTabIcon({ color, focused }: { color: string; focused: boolean }) {
   const { cartItemsCount } = useFoodStore();
@@ -27,12 +28,12 @@ export default function TabLayout() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: '#3472B5',
+          backgroundColor: Colors.primary,
           borderTopWidth: 0,
           borderRadius: 50,
           position: 'absolute',
-          left: 20,
-          right: 20,
+          left: 40,
+          right: 40,
           bottom: 20,
           height: 60,
           paddingBottom: 0,
@@ -46,8 +47,8 @@ export default function TabLayout() {
           shadowOpacity: 0.25,
           shadowRadius: 3.84,
         },
-        tabBarActiveTintColor: '#FDFEFE',
-        tabBarInactiveTintColor: '#BEBEBF',
+        tabBarActiveTintColor: Colors.background,
+        tabBarInactiveTintColor: Colors.muted,
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: '500',
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -8,
     right: -8,
-    backgroundColor: '#DB2A2D',
+    backgroundColor: Colors.secondary,
     borderRadius: 10,
     minWidth: 20,
     height: 20,

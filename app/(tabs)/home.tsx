@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity, Image, Dimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Search, Menu } from 'lucide-react-native';
+import { Search } from 'lucide-react-native';
 import { Link } from 'expo-router';
 import { useFoodStore } from '@/hooks/use-food-store';
 import ProductCard from '@/components/ProductCard';
@@ -22,9 +22,6 @@ export default function HomeScreen() {
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
       <View style={styles.header}>
-        <TouchableOpacity style={styles.menuButton} testID="menu-button">
-          <Menu size={24} color={Colors.text} />
-        </TouchableOpacity>
         <Logo width={140} height={40} testID="brand-logo" />
         <Link href="/(tabs)/settings" asChild>
           <TouchableOpacity style={styles.profileButton} testID="profile-button">
@@ -89,9 +86,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
     paddingVertical: 16,
-  },
-  menuButton: {
-    padding: 8,
   },
   profileButton: {
     position: 'relative',
