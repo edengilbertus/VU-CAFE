@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Animated } from 'react-native';
-import { useRouter, useSegments, usePathname } from 'expo-router';
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useRouter, usePathname } from 'expo-router';
 import { Home, ShoppingCart, Settings } from 'lucide-react-native';
 import { Colors } from '@/constants/colors';
 import { useFoodStore } from '@/hooks/use-food-store';
@@ -13,36 +13,18 @@ interface TabBarButtonProps {
 }
 
 function TabBarButton({ icon, label, active, onPress }: TabBarButtonProps) {
-  const scaleValue = React.useRef(new Animated.Value(1)).current;
-
-  const handlePressIn = () => {
-    Animated.spring(scaleValue, {
-      toValue: 0.9,
-      useNativeDriver: true,
-    }).start();
-  };
-
-  const handlePressOut = () => {
-    Animated.spring(scaleValue, {
-      toValue: 1,
-      useNativeDriver: true,
-    }).start();
-  };
-
   return (
     <TouchableOpacity
       style={styles.tabButton}
       onPress={onPress}
-      onPressIn={handlePressIn}
-      onPressOut={handlePressOut}
-      activeOpacity={1}
+      activeOpacity={0.7}
     >
-      <Animated.View style={[styles.tabContent, { transform: [{ scale: scaleValue }] }]}>
+      <View style={styles.tabContent}>
         {icon}
         <Text style={[styles.tabLabel, { color: active ? Colors.background : Colors.muted }]}>
           {label}
         </Text>
-      </Animated.View>
+      </View>
     </TouchableOpacity>
   );
 }
@@ -66,7 +48,6 @@ function CartTabIcon({ color, focused }: { color: string; focused: boolean }) {
 
 export default function AnimatedTabBar() {
   const router = useRouter();
-  const segments = useSegments();
   const pathname = usePathname();
 
   // Determine which tab is currently active
@@ -80,9 +61,18 @@ export default function AnimatedTabBar() {
   const activeTab = getActiveTab();
 
   const handleTabPress = (tab: string) => {
-    // Add a small animation when switching tabs
-    if (tab !== activeTab) {
-      router.push(`/(tabs)/${tab}`);
+    switch (tab) {
+      case 'home':
+        router.push('/(tabs)/home');
+        break;
+      case 'cart':
+        router.push('/(tabs)/cart');
+        break;
+      case 'settings':
+        router.push('/(tabs)/settings');
+        break;
+      default:
+        router.push('/(tabs)/home');
     }
   };
 

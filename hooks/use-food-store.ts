@@ -176,7 +176,7 @@ export const [FoodStoreProvider, useFoodStore] = createContextHook(() => {
     return cart.reduce((total, item) => total + item.quantity, 0);
   }, [cart]);
 
-  return useMemo(() => ({
+  return {
     foods: filteredFoods,
     cart,
     favorites,
@@ -191,18 +191,5 @@ export const [FoodStoreProvider, useFoodStore] = createContextHook(() => {
     updateCartQuantity,
     removeFromCart,
     clearCart,
-  }), [
-    filteredFoods,
-    cart,
-    favorites,
-    searchQuery,
-    selectedCategory,
-    cartTotal,
-    cartItemsCount,
-    toggleFavorite,
-    addToCart,
-    updateCartQuantity,
-    removeFromCart,
-    clearCart,
-  ]);
+  };
 });
