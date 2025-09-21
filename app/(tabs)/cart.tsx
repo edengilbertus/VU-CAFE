@@ -92,6 +92,10 @@ export default function CartScreen() {
   );
 }
 
+CartScreen.navigationOptions = {
+  tabBarVisible: false,
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

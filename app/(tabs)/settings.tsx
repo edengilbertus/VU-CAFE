@@ -196,6 +196,10 @@ export default function SettingsScreen() {
   );
 }
 
+SettingsScreen.navigationOptions = {
+  tabBarVisible: false,
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
