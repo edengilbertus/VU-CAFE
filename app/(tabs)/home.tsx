@@ -4,6 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Search } from 'lucide-react-native';
 import { Link } from 'expo-router';
 import { useFoodStore } from '@/hooks/use-food-store';
+import { useUserStore } from '@/hooks/use-user-store';
 import ProductCard from '@/components/ProductCard';
 import CategoryTabs from '@/components/CategoryTabs';
 import Logo from '@/components/Logo';
@@ -18,6 +19,10 @@ export default function HomeScreen() {
     setSearchQuery, 
     setSelectedCategory 
   } = useFoodStore();
+  
+  const { profile } = useUserStore();
+
+  const profileImageUrl = profile?.profileImage || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face';
 
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
@@ -26,7 +31,7 @@ export default function HomeScreen() {
         <Link href="/(tabs)/settings" asChild>
           <TouchableOpacity style={styles.profileButton} testID="profile-button">
             <Image 
-              source={{ uri: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face' }}
+              source={{ uri: profileImageUrl }}
               style={styles.profileImage}
             />
             <View style={styles.notificationBadge} />

@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ArrowLeft, Minus, Plus, Star } from 'lucide-react-native';
 import { Link, router, useLocalSearchParams } from 'expo-router';
 import { useFoodStore } from '@/hooks/use-food-store';
+import { useUserStore } from '@/hooks/use-user-store';
 import { FOOD_ITEMS } from '@/constants/food';
 
 import { formatUGX } from '@/utils/currency';
@@ -11,9 +12,13 @@ import { formatUGX } from '@/utils/currency';
 export default function FoodDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { addToCart } = useFoodStore();
+  const { profile } = useUserStore();
   const [quantity, setQuantity] = useState<number>(1);
 
   const food = FOOD_ITEMS.find(item => item.id === id);
+
+  // Use user's profile image or fallback to default
+  const profileImageUrl = profile?.profileImage || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face';
 
   if (!food) {
     return (
@@ -56,7 +61,7 @@ export default function FoodDetailScreen() {
         <Link href="/(tabs)/settings" asChild>
           <TouchableOpacity style={styles.profileButton} testID="profile-button">
             <Image 
-              source={{ uri: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face' }}
+              source={{ uri: profileImageUrl }}
               style={styles.profileImage}
             />
             <View style={styles.notificationBadge} />

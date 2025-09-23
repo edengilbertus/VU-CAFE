@@ -97,10 +97,11 @@ CartScreen.navigationOptions = {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F8F9FA',
-  },
+   container: {
+     flex: 1,
+     backgroundColor: '#F8F9FA',
+     paddingBottom: 120,
+   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -204,13 +205,18 @@ const styles = StyleSheet.create({
     color: '#666',
     textAlign: 'center',
   },
-  footer: {
-    backgroundColor: 'white',
-    paddingHorizontal: 20,
-    paddingVertical: 20,
-    borderTopWidth: 1,
-    borderTopColor: '#E5E5E5',
-  },
+   footer: {
+     backgroundColor: 'white',
+     paddingHorizontal: 20,
+     paddingVertical: 20,
+     borderTopWidth: 1,
+     borderTopColor: '#E5E5E5',
+     position: 'absolute',
+     bottom: 0,
+     left: 0,
+     right: 0,
+     zIndex: 10,
+   },
   totalContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
