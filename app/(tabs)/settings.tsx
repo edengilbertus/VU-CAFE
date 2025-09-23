@@ -9,7 +9,7 @@ import { Colors } from '@/constants/colors';
 
 export default function SettingsScreen() {
   const insets = useSafeAreaInsets();
-  const { profile, setProfile, classroom, setClassroom } = useUserStore();
+  const { profile, setProfile, classroom, setClassroom, logout } = useUserStore();
   const [name, setName] = useState<string>(profile?.name || '');
   const [email, setEmail] = useState<string>(profile?.email || '');
   const [studentNumber, setStudentNumber] = useState<string>(profile?.studentNumber || '');
@@ -114,7 +114,7 @@ export default function SettingsScreen() {
     { id: 'favorites', icon: Heart, label: 'Favorites', onPress: () => {} },
     { id: 'history', icon: Clock, label: 'Order History', onPress: () => {} },
     { id: 'help', icon: HelpCircle, label: 'Help & Support', onPress: () => {} },
-    { id: 'logout', icon: LogOut, label: 'Logout', onPress: () => {}, isDestructive: true },
+    { id: 'logout', icon: LogOut, label: 'Logout', onPress: logout, isDestructive: true },
   ];
 
   return (

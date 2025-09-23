@@ -19,6 +19,9 @@ interface UserState {
   isLoading: boolean;
   setProfile: (profile: UserProfile | null) => void;
   setClassroom: (room: string) => void;
+  login: (email?: string, password?: string) => void;
+  signup: (username?: string, email?: string, password?: string) => void;
+  logout: () => void;
 }
 
 const createStorage = (): StorageProvider => {
@@ -68,7 +71,31 @@ const [UserStoreProvider, useUserStore] = createContextHook<UserState>(() => {
     storage.setItem('user_classroom', value);
   }, [storage]);
 
-  return useMemo(() => ({ profile, classroom, isLoading, setProfile, setClassroom }), [profile, classroom, isLoading, setProfile, setClassroom]);
+  const login = useCallback((email?: string, password?: string) => {
+    // In a real app, you would authenticate with a server
+    const dummyProfile: UserProfile = {
+      email: email || 'test@test.com',
+      name: 'Test User',
+      profileImage: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
+    };
+    setProfile(dummyProfile);
+  }, [setProfile]);
+
+  const signup = useCallback((username?: string, email?: string, password?: string) => {
+    // In a real app, you would register with a server
+    const dummyProfile: UserProfile = {
+      email: email || 'test@test.com',
+      name: username || 'Test User',
+      profileImage: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
+    };
+    setProfile(dummyProfile);
+  }, [setProfile]);
+
+  const logout = useCallback(() => {
+    setProfile(null);
+  }, [setProfile]);
+
+  return useMemo(() => ({ profile, classroom, isLoading, setProfile, setClassroom, login, signup, logout }), [profile, classroom, isLoading, setProfile, setClassroom, login, signup, logout]);
 });
 
 export { UserStoreProvider, useUserStore };

@@ -1,13 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity, Image, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TextInput } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Search } from 'lucide-react-native';
-import { Link } from 'expo-router';
 import { useFoodStore } from '@/hooks/use-food-store';
 import { useUserStore } from '@/hooks/use-user-store';
 import ProductCard from '@/components/ProductCard';
 import CategoryTabs from '@/components/CategoryTabs';
-import Logo from '@/components/Logo';
 import { Colors } from '@/constants/colors';
 
 export default function HomeScreen() {
@@ -22,22 +20,9 @@ export default function HomeScreen() {
   
   const { profile } = useUserStore();
 
-  const profileImageUrl = profile?.profileImage || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face';
-
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
-      <View style={styles.header}>
-        <Logo width={140} height={40} testID="brand-logo" />
-        <Link href="/(tabs)/settings" asChild>
-          <TouchableOpacity style={styles.profileButton} testID="profile-button">
-            <Image 
-              source={{ uri: profileImageUrl }}
-              style={styles.profileImage}
-            />
-            <View style={styles.notificationBadge} />
-          </TouchableOpacity>
-        </Link>
-      </View>
+      <View style={styles.header} />
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.titleContainer}>
@@ -89,7 +74,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: 16,
     paddingVertical: 16,
   },
   profileButton: {
