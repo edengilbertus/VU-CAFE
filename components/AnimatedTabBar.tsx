@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useRouter, usePathname } from 'expo-router';
-import { Home, ShoppingCart, Settings } from 'lucide-react-native';
+import { Home, ShoppingCart, Settings, User } from 'lucide-react-native';
 import { Colors } from '@/constants/colors';
 import { useFoodStore } from '@/hooks/use-food-store';
 
@@ -54,6 +54,7 @@ export default function AnimatedTabBar() {
   const getActiveTab = () => {
     if (pathname === '/(tabs)/home' || pathname === '/(tabs)') return 'home';
     if (pathname === '/(tabs)/cart') return 'cart';
+    if (pathname === '/(tabs)/profile') return 'profile';
     if (pathname === '/(tabs)/settings') return 'settings';
     return 'home';
   };
@@ -67,6 +68,9 @@ export default function AnimatedTabBar() {
         break;
       case 'cart':
         router.push('/(tabs)/cart');
+        break;
+      case 'profile':
+        router.push('/(tabs)/profile');
         break;
       case 'settings':
         router.push('/(tabs)/settings');
@@ -90,6 +94,12 @@ export default function AnimatedTabBar() {
           label="Cart"
           active={activeTab === 'cart'}
           onPress={() => handleTabPress('cart')}
+        />
+        <TabBarButton
+          icon={<User color={activeTab === 'profile' ? Colors.background : Colors.muted} size={24} />}
+          label="Profile"
+          active={activeTab === 'profile'}
+          onPress={() => handleTabPress('profile')}
         />
         <TabBarButton
           icon={<Settings color={activeTab === 'settings' ? Colors.background : Colors.muted} size={24} />}
