@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView, TextInput, Alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView, TextInput, Alert, ActionSheetIOS, Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Camera, Save, MapPin, Heart, Clock, HelpCircle, LogOut } from 'lucide-react-native';
 import * as ImagePicker from 'expo-image-picker';
@@ -31,6 +31,39 @@ export default function SettingsScreen() {
   const handleSaveClassroom = () => {
     setClassroom(roomInput);
     Alert.alert('Success', 'Classroom updated successfully!');
+  };
+
+  const showImagePickerOptions = () => {
+    const options = ['Take Photo', 'Choose from Library', 'Cancel'];
+    const cancelButtonIndex = 2;
+
+    if (Platform.OS === 'ios') {
+      ActionSheetIOS.showActionSheetWithOptions(
+        {
+          options,
+          cancelButtonIndex,
+        },
+        (buttonIndex) => {
+          if (buttonIndex === 0) {
+            takePhoto();
+          } else if (buttonIndex === 1) {
+            pickImage();
+          }
+        }
+      );
+    } else {
+      // For Android, we can show an alert with options
+      Alert.alert(
+        'Select Photo',
+        'Choose an option',
+        [
+          { text: 'Take Photo', onPress: takePhoto },
+          { text: 'Choose from Library', onPress: pickImage },
+          { text: 'Cancel', style: 'cancel' }
+        ],
+        { cancelable: true }
+      );
+    }
   };
 
   const pickImage = async () => {
@@ -93,10 +126,15 @@ export default function SettingsScreen() {
       >
         {/* Profile Header */}
         <View style={styles.profileHeader}>
-          <Image 
-            source={{ uri: profileImage }}
-            style={styles.profileImage}
-          />
+          <TouchableOpacity onPress={showImagePickerOptions} style={styles.profileImageContainer}>
+            <Image 
+              source={{ uri: profileImage }}
+              style={styles.profileImage}
+            />
+            <View style={styles.cameraIconContainer}>
+              <Camera size={20} color="white" />
+            </View>
+          </TouchableOpacity>
           <Text style={styles.profileName}>{profile?.name || 'VU CAFE Member'}</Text>
           {!!profile?.email && <Text style={styles.profileEmail}>{profile.email}</Text>}
         </View>
@@ -214,11 +252,27 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginBottom: 20,
   },
+  profileImageContainer: {
+    position: 'relative',
+    marginBottom: 16,
+  },
   profileImage: {
     width: 100,
     height: 100,
     borderRadius: 50,
-    marginBottom: 16,
+  },
+  cameraIconContainer: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    backgroundColor: Colors.primary,
+    borderRadius: 15,
+    width: 30,
+    height: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: 'white',
   },
   profileName: {
     fontSize: 24,
